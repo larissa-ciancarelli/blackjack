@@ -1,0 +1,23 @@
+{
+  "name": "blackjack",
+  "version": "1.0.0",
+  "description": "blackjack take home",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/larissa-ciancarelli/blackjack.git"
+  },
+  "author": "larissa c",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/larissa-ciancarelli/blackjack/issues"
+  },
+  "homepage": "https://github.com/larissa-ciancarelli/blackjack#readme",
+  "devDependencies": {
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.2"
+  }
+}
