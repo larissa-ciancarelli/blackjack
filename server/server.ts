@@ -1,5 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 
+import CardController from './CardController';
+
 const app = express();
 
 interface ServerError {
@@ -18,12 +20,12 @@ app.use(express.json());
   * ==================================
 */
 
-app.get('/cards/', (req: Request, res: Response) => {
-  return res.status(200).json(/* */);
+app.get('/cards/', CardController.getNewDeck, (req: Request, res: Response) => {
+  return res.status(200).json(res.locals.newDeck);
 });
 
-app.get('/cards/:deckId', (req: Request, res: Response) => {
-  return res.status(200).json(/* */);
+app.get('/cards/:deckId', CardController.drawCards, (req: Request, res: Response) => {
+  return res.status(200).json(res.locals.newCards);
 });
 
 /**
