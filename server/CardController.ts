@@ -25,7 +25,7 @@ const CardController: CardControllerTypes = {
     try {
       const { deckId } = req.params;
       let count = 1;
-      if (req.query.cound) count = Number(req.query.count);
+      if (req.query.count) count = Number(req.query.count);
 
       let cards = await fetch(`https://www.deckofcardsapi.com/api/deck/${deckId}/draw/?count=${count}`);
       cards = await cards.json();
