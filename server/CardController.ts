@@ -8,9 +8,9 @@ interface CardControllerTypes {
 const CardController: CardControllerTypes = {
   getNewDeck: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      let deck = await fetch('https://www.deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1');
+      let deck = await fetch('https://deckofcardsapi.com/api/deck/new/shuffle/');
       deck = await deck.json();
-
+      
       res.locals.newDeck = deck;
       return next();
     } catch (err) {

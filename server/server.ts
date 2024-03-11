@@ -20,7 +20,7 @@ app.use(express.json());
   * ==================================
 */
 
-app.get('/cards/', CardController.getNewDeck, (req: Request, res: Response) => {
+app.get('/cards', CardController.getNewDeck, (req: Request, res: Response) => {
   return res.status(200).json(res.locals.newDeck);
 });
 

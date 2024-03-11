@@ -1,8 +1,10 @@
+interface CardProps {
+  img: string
+}
 
-
-const Card = (): JSX.Element => {
-  return(
-    <div>Card</div>
+const Card = ({ img }: CardProps): JSX.Element => {
+  return (
+    <img src={img} />
   );
 };
 

@@ -1,9 +1,17 @@
 import Card from './Card';
 
-const CardContainer = (): JSX.Element => {
+interface CardContainerProps {
+  score: number,
+  cards: string[]
+};
+
+// will need to display score and cards
+const CardContainer = ({ score, cards }: CardContainerProps): JSX.Element => {
+  
   return(
-    <div>CardContainer
-      <Card />
+    <div>
+      <h2>Score: {score}</h2>
+      {cards.map((el) => <Card img={el} />)}
     </div>
   );
 };
