@@ -26,6 +26,8 @@ const Board = (): JSX.Element => {
   const [houseCards, setHouseCards] = useState([]);
   const [playerCards, setPlayerCards] = useState([]);
   const [hasAce, setHasAce] = useState(false);
+  const [stand, setStand] = useState(false);
+  const [deckStatus, setDeckStatus] = useState('')
 
   //lifecycle methods
   // request a new shuffled deck when the board initially loads
@@ -33,15 +35,27 @@ const Board = (): JSX.Element => {
     shuffleCards()
   }, []);
 
+  useEffect(() => {
+    checkForWin();
+  }, [playerCards, stand]);
+
   //Functions
   const shuffleCards = (): void => {
+    // disables user from trying to hit or stand while deck is loading
+    setDeckStatus('paused');
+
     fetch('/cards')
       .then(response => response.json())
       .then((data: Deck) => setDeck(data))
       .catch(err => console.log(err))
+
+    setDeckStatus('ready');
   };
 
   const drawCards = (): void => {
+    if (hasAce) setHasAce(false);
+    if (stand) setStand(false);
+    setDeckStatus('ready');
 
     fetch(`/cards/${deck.deck_id}?count=4`)
       .then(response => response.json())
@@ -96,15 +110,35 @@ const Board = (): JSX.Element => {
       .catch(err => console.log(err));
   };
 
-  const handleStandClick = (): void => {};
+  const handleStandClick = (): void => {
+    setStand(true);
+    setDeckStatus('pause')
+  };
+
+  const checkForWin = (): void => {
+    if (score.player > 21 || 
+      stand && score.player <= score.house ||
+      score.house === 21){
+        setDeckStatus('paused');
+        alert('you lose :(');
+    } else if (score.player === 21 && score.house !== 21 ||
+      stand && score.player > score.house){
+        setDeckStatus('paused');
+        alert('you win :)');
+    };
+  }
+
+  if (deck.remaining === 0){
+    shuffleCards();
+  }
 
   return(
     <div>Board
       <button onClick={() => drawCards()}>Start Game</button>
       <CardContainer score={score.house} cards={houseCards} />
       <CardContainer score={score.player} cards={playerCards}/>
-      <button onClick={() => handleHitClick()}>Hit</button>
-      <button>Stand</button>
+      <button disabled={deckStatus==='paused'} onClick={() => handleStandClick()}>Stand</button>
+      <button disabled={deckStatus === 'paused'} onClick={(() => handleHitClick())}>Hit</button>   
     </div>
   );
 };
