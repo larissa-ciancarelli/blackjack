@@ -13,7 +13,7 @@ interface CardProps {
 
 const Card = ({ img }: CardProps): JSX.Element => {
   return (
-    <img className="playingCard" src={img} />
+    <img className="playingcard" src={img} />
   );
 };
 

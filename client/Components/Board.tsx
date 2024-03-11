@@ -179,7 +179,7 @@ const Board = (): JSX.Element => {
    * ===================
   */
   return(
-    <div id="board">Board
+    <div id="board">
       <button id="startButton" onClick={() => drawCards()}>Start Game</button>
       <div id="cardContainer">
       <CardContainer id="house" score={score.house} cards={houseCards} />
